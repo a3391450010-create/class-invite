@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>毕业20周年 · 电影级邀请函</title>
+
+<style>
+  :root{
+    --bg:#05070e;
+    --gold:#f7d17a;
+    --muted:rgba(255,255,255,.65);
+    --text:rgba(255,255,255,.92);
+    --glass:rgba(255,255,255,.08);
+    --border:rgba(255,255,255,.18);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;font-family:"PingFang SC","Microsoft YaHei",sans-serif;}
+  body{
+    background: var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+  }
+
+  /* 胶片颗粒 */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+    opacity:.25;
+    mix-blend-mode:overlay;
+    pointer-events:none;
+    z-index:999;
+  }
+
+  .page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:26px 18px;
+    position:relative;
+  }
+
+  /* 电影片头 */
+  .intro{
+    background: radial-gradient(circle at 20% 20%, rgba(120,180,255,.18), transparent 60%),
+                radial-gradient(circle at 80% 40%, rgba(255,180,120,.15), transparent 60%),
+                radial-gradient(circle at 40% 90%, rgba(180,255,210,.12), transparent 60%),
+                #04050a;
+    text-align:center;
+  }
+
+  .intro h1{
+    font-size:40px;
+    letter-spacing:3px;
+    color:var(--gold);
+    text-shadow:0 0 30px rgba(247,209,122,.25);
+    animation:fadeIn 1.8s ease forwards;
+  }
+
+  .intro h2{
+    margin-top:14px;
+    font-size:16px;
+    font-weight:400;
+    color:rgba(255,255,255,.7);
+    line-height:1.9;
+    animation:fadeIn 2.8s ease forwards;
+  }
+
+  .intro .sub{
+    margin-top:30px;
+    font-size:13px;
+    color:rgba(255,255,255,.55);
+    letter-spacing:2px;
+    animation:blink 1.8s infinite;
+  }
+
+  @keyframes blink{
+    0%,100%{opacity:.35}
+    50%{opacity:1}
+  }
+
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* 电影字幕滚动 */
+  .credits{
+    margin-top:40px;
+    height:120px;
+    overflow:hidden;
+    position:relative;
+    opacity:.9;
+  }
+  .credits div{
+    position:absolute;
+    width:100%;
+    top:120px;
+    animation:scrollCredits 12s linear infinite;
+    font-size:13px;
+    line-height:2;
+    color:rgba(255,255,255,.55);
+  }
+  @keyframes scrollCredits{
+    from{top:120px;}
+    to{top:-260px;}
+  }
+
+  /* 通用卡片 */
+  .card{
+    width:min(980px, 100%);
+    background:var(--glass);
+    border:1px solid var(--border);
+    border-radius:26px;
+    padding:26px;
+    backdrop-filter: blur(12px);
+    box-shadow:0 20px 80px rgba(0,0,0,.55);
+  }
+
+  .title{
+    font-size:24px;
+    color:var(--gold);
+    letter-spacing:1px;
+    margin-bottom:14px;
+  }
+
+  .text{
+    font-size:15px;
+    line-height:2.05;
+    color:rgba(255,255,255,.86);
+  }
+
+  /* 照片电影轮播 */
+  .cinema{
+    display:grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap:18px;
+    align-items:stretch;
+  }
+
+  @media(max-width:900px){
+    .cinema{grid-template-columns:1fr;}
+    .intro h1{font-size:30px;}
+  }
+
+  .frame{
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.16);
+    position:relative;
+    min-height:360px;
+    background:#000;
+  }
+
+  .frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:contrast(1.05) saturate(1.1);
+    transform:scale(1.02);
+    transition:opacity .8s ease;
+    opacity:1;
+  }
+
+  .caption{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:14px 16px;
+    background:linear-gradient(180deg, transparent, rgba(0,0,0,.75));
+    font-size:14px;
+    color:rgba(255,255,255,.9);
+    letter-spacing:1px;
+  }
+
+  /* 信息列表 */
+  .info{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .info .box{
+    padding:14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.12);
+    font-size:14px;
+    line-height:1.8;
+  }
+  .info .box span{
+    display:inline-block;
+    min-width:72px;
+    color:rgba(255,255,255,.55);
+  }
+
+  /* 倒计时 */
+  .countdown{
+    margin-top:14px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .timebox{
+    flex:1;
+    min-width:110px;
+    padding:14px;
+    border-radius:18px;
+    text-align:center;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.12);
+  }
+  .timebox b{
+    font-size:26px;
+    display:block;
+    color:var(--gold);
+  }
+  .timebox small{
+    color:rgba(255,255,255,.55);
+  }
+
+  /* 按钮 */
+  .btns{
+    margin-top:16px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  button{
+    border:none;
+    cursor:pointer;
+    border-radius:16px;
+    padding:12px 16px;
+    font-size:14px;
+    transition:.25s;
+  }
+  .btn-main{
+    background:linear-gradient(90deg, #f7d17a, #fff2cf);
+    color:#111;
+    font-weight:700;
+  }
+  .btn-sub{
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.16);
+    color:rgba(255,255,255,.86);
+  }
+  button:hover{
+    transform:translateY(-2px);
+  }
+
+  /* 打字机 */
+  .typing{
+    border-left:2px solid rgba(247,209,122,.8);
+    padding-left:10px;
+    animation:caret 1s infinite;
+  }
+  @keyframes caret{
+    0%,100%{border-color:rgba(247,209,122,.2);}
+    50%{border-color:rgba(247,209,122,.9);}
+  }
+
+  footer{
+    padding:55px 18px;
+    text-align:center;
+    font-size:13px;
+    color:rgba(255,255,255,.55);
+  }
+
+  /* 音乐按钮 */
+  .music{
+    position:fixed;
+    top:14px;
+    right:14px;
+    z-index:9999;
+    background:rgba(0,0,0,.55);
+    border:1px solid rgba(255,255,255,.18);
+    color:rgba(255,255,255,.85);
+    border-radius:999px;
+    padding:10px 14px;
+    font-size:13px;
+    backdrop-filter: blur(10px);
+  }
+</style>
+</head>
+
+<body>
+
+<button class="music" onclick="toggleMusic()">🎵 音乐：<span id="musicState">关闭</span></button>
+<audio id="bgm" loop>
+  <source src="bgm.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 片头 -->
+<div class="page intro">
+  <div>
+    <h1>廿年一梦，归来仍是少年</h1>
+    <h2>
+      中国地质大学（北京）<br/>
+      毕业二十周年 · 返校聚会邀请函
+    </h2>
+
+    <div class="credits">
+      <div>
+        出品：XX班同学会筹备组<br/>
+        总策划：班长<br/>
+        特别出演：我们每一个人<br/>
+        友情客串：食堂、宿舍、操场、图书馆<br/>
+        主题：青春不散场<br/>
+        上映时间：2026年5月23日<br/>
+      </div>
+    </div>
+
+    <div class="sub">⬇ 向下滑动，开启我们的青春电影</div>
+  </div>
+</div>
+
+<!-- 电影镜头 -->
+<section class="page">
+  <div class="card cinema">
+    <div class="frame">
+      <img id="slideImg" src="1.jpg" alt="photo"/>
+      <div class="caption" id="caption">镜头一：那一年，我们站在校门前，以为未来很远。</div>
+    </div>
+
+    <div class="info">
+      <div class="title">聚会信息</div>
+      <div class="box"><span>时间</span>2026年5月23日（周六）</div>
+      <div class="box"><span>地点</span>中国地质大学（北京）</div>
+      <div class="box"><span>主题</span>毕业20周年返校聚会</div>
+
+      <div class="title" style="margin-top:8px;font-size:20px;">倒计时</div>
+      <div class="countdown">
+        <div class="timebox"><b id="d">--</b><small>天</small></div>
+        <div class="timebox"><b id="h">--</b><small>小时</small></div>
+        <div class="timebox"><b id="m">--</b><small>分钟</small></div>
+        <div class="timebox"><b id="s">--</b><small>秒</small></div>
+      </div>
+
+      <div class="btns">
+        <button class="btn-main" onclick="signup()">📌 立即报名</button>
+        <button class="btn-sub" onclick="openMap()">📍 打开地图导航</button>
+        <button class="btn-sub" onclick="showWechat()">💬 加入聚会群</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 信 -->
+<section class="page">
+  <div class="card">
+    <div class="title">致老同学的一封信</div>
+    <div class="text typing" id="letter">
+      （加载中…）
+    </div>
+  </div>
+</section>
+
+<!-- 活动安排 -->
+<section class="page">
+  <div class="card">
+    <div class="title">活动安排（暂定）</div>
+    <div class="text">
+      · 老照片回顾（大屏播放）<br/>
+      · 校园重走（经典路线打卡）<br/>
+      · 食堂怀旧餐（回到当年的味道）<br/>
+      · 师生见面会（再听一节课）<br/>
+      · 参观校史馆 / 校博物馆 / 院系实验室<br/>
+      · 青春球赛（篮球/足球/羽毛球）<br/>
+      · 夜谈酒局（不谈KPI，只谈青春）<br/>
+      · 真心话大冒险（自愿参加）<br/><br/>
+      <span style="color:rgba(255,255,255,.6);font-size:14px;">
+        （具体安排将于微信群内公布）
+      </span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 毕业20周年同学聚会 · 青春不散场<br/>
+  提示：可加班主任/导师签名与祝福语
+</footer>
+
+<script>
+  // 电影轮播
+  const slides = [
+    {img:"1.jpg", text:"镜头一：那一年，我们站在校门前，以为未来很远。"},
+    {img:"2.jpg", text:"镜头二：大合照里的人，后来散落在世界的每一个方向。"},
+    {img:"3.jpg", text:"镜头三：雪落校园，青春却从未冷却。"},
+    {img:"4.jpg", text:"镜头四：宿舍的兄弟情（正式版建议换照片）。"}
+  ];
+
+  let idx = 0;
+  const slideImg = document.getElementById("slideImg");
+  const caption = document.getElementById("caption");
+
+  setInterval(()=>{
+    idx = (idx+1) % slides.length;
+    slideImg.style.opacity = 0;
+    setTimeout(()=>{
+      slideImg.src = slides[idx].img;
+      caption.innerText = slides[idx].text;
+      slideImg.style.opacity = 1;
+    }, 600);
+  }, 4200);
+
+  // 倒计时
+  const target = new Date("2026-05-23T10:00:00").getTime();
+  function updateCountdown(){
+    const now = new Date().getTime();
+    let diff = target - now;
+    if(diff < 0) diff = 0;
+
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff / (1000*60*60)) % 24);
+    const m = Math.floor((diff / (1000*60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("d").innerText = d;
+    document.getElementById("h").innerText = h;
+    document.getElementById("m").innerText = m;
+    document.getElementById("s").innerText = s;
+  }
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  // 打字机信件内容
+  const letterText = `
+亲爱的老同学：
+
+见字如面。
+
+当2026年的春风拂过深圳湾，我忽然意识到，
+距离我们最后一次在校园里挥手道别，已经整整二十年了。
+
+二十年，足够一座城市旧貌换新颜，
+也足够让我们从少年，走成如今的模样。
+
+有人事业有成，有人家庭美满，
+有人忙着奔波，有人忙着生活。
+但我们都知道，那段青春从未真正离开。
+
+今年，我们想请你回到母校，
+走一走当年的路，坐一坐当年的台阶，
+看看曾经的教室、操场、宿舍楼。
+
+不是要你汇报年薪，不是要你炫耀成就，
+只是想看看你——
+看看你笑起来时，眼角是不是还藏着当年的弧度。
+
+二十年了，我们欠彼此一个拥抱。
+
+想你了，等你回来，把酒言欢！
+
+—— 班长 敬邀
+  `.trim();
+
+  const letterEl = document.getElementById("letter");
+  let p = 0;
+
+  function typeWriter(){
+    if(p <= letterText.length){
+      letterEl.innerText = letterText.substring(0,p);
+      p++;
+      setTimeout(typeWriter, 28);
+    }
+  }
+  typeWriter();
+
+  // 功能按钮
+  function signup(){
+    alert("这里可以替换成报名链接，比如腾讯表单/金数据。\n\n例如：window.open('https://xxx.com')");
+  }
+
+  function openMap(){
+    const url = "https://map.baidu.com/search/%E4%B8%AD%E5%9B%BD%E5%9C%B0%E8%B4%A8%E5%A4%A7%E5%AD%A6%EF%BC%88%E5%8C%97%E4%BA%AC%EF%BC%89";
+    window.open(url, "_blank");
+  }
+
+  function showWechat(){
+    alert("这里建议放微信群二维码图片，或放联系人微信号。\n\n正式上线我可以帮你改成弹窗二维码。");
+  }
+
+  // 音乐控制
+  const bgm = document.getElementById("bgm");
+  const musicState = document.getElementById("musicState");
+  let playing = false;
+
+  function toggleMusic(){
+    if(!playing){
+      bgm.play();
+      playing = true;
+      musicState.innerText = "开启";
+    }else{
+      bgm.pause();
+      playing = false;
+      musicState.innerText = "关闭";
+    }
+  }
+</script>
+
+</body>
+</html>
