@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>毕业20周年 · 电影级邀请函</title>
+
+<style>
+  :root{
+    --gold:#f7d17a;
+    --text:rgba(255,255,255,.92);
+    --muted:rgba(255,255,255,.65);
+    --glass:rgba(255,255,255,.08);
+    --border:rgba(255,255,255,.18);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;font-family:"PingFang SC","Microsoft YaHei",sans-serif;}
+
+  body{
+    background:#04060b;
+    color:var(--text);
+    overflow-x:hidden;
+  }
+
+  /* 背景图：2.jpg 半透明 */
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url("2.jpg") center/cover no-repeat;
+    opacity:.28;
+    filter: blur(2px) saturate(1.1) contrast(1.05);
+    z-index:-3;
+  }
+
+  /* 暗色蒙版 */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:linear-gradient(180deg, rgba(0,0,0,.78), rgba(0,0,0,.9));
+    z-index:-2;
+  }
+
+  /* 胶片颗粒 */
+  .grain{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:999;
+    opacity:.22;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+  }
+
+  .page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:26px 18px;
+    position:relative;
+  }
+
+  /* 音乐按钮 */
+  #musicBtn{
+    position:fixed;
+    top:14px;
+    right:14px;
+    z-index:99999;
+    padding:10px 14px;
+    border-radius:999px;
+    background:rgba(0,0,0,.55);
+    border:1px solid rgba(255,255,255,.18);
+    color:rgba(255,255,255,.85);
+    backdrop-filter: blur(10px);
+    cursor:pointer;
+    font-size:13px;
+    user-select:none;
+  }
+
+  /* 片头封面 */
+  .intro{
+    text-align:center;
+  }
+
+  .intro .badge{
+    display:inline-block;
+    padding:10px 18px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.2);
+    background:rgba(255,255,255,.06);
+    backdrop-filter: blur(12px);
+    font-size:13px;
+    letter-spacing:2px;
+    color:var(--gold);
+  }
+
+  .intro h1{
+    margin-top:18px;
+    font-size:42px;
+    letter-spacing:3px;
+    color:var(--gold);
+    text-shadow:0 0 30px rgba(247,209,122,.22);
+    animation:fadeIn 1.8s ease forwards;
+  }
+
+  .intro h2{
+    margin-top:14px;
+    font-size:16px;
+    font-weight:400;
+    color:rgba(255,255,255,.72);
+    line-height:1.9;
+    animation:fadeIn 2.6s ease forwards;
+  }
+
+  .intro .sub{
+    margin-top:32px;
+    font-size:13px;
+    color:rgba(255,255,255,.55);
+    letter-spacing:2px;
+    animation:blink 1.8s infinite;
+  }
+
+  @keyframes blink{
+    0%,100%{opacity:.35}
+    50%{opacity:1}
+  }
+
+  @keyframes fadeIn{
+    from{opacity:0; transform:translateY(16px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* 电影字幕滚动 */
+  .credits{
+    margin-top:40px;
+    height:140px;
+    overflow:hidden;
+    position:relative;
+    opacity:.9;
+  }
+
+  .credits div{
+    position:absolute;
+    width:100%;
+    top:160px;
+    animation:scrollCredits 14s linear infinite;
+    font-size:13px;
+    line-height:2.05;
+    color:rgba(255,255,255,.55);
+  }
+
+  @keyframes scrollCredits{
+    from{top:160px;}
+    to{top:-280px;}
+  }
+
+  /* 卡片容器 */
+  .card{
+    width:min(980px, 100%);
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:26px;
+    padding:26px;
+    backdrop-filter: blur(14px);
+    box-shadow:0 20px 90px rgba(0,0,0,.58);
+  }
+
+  .title{
+    font-size:24px;
+    color:var(--gold);
+    letter-spacing:1px;
+    margin-bottom:14px;
+  }
+
+  .text{
+    font-size:15px;
+    line-height:2.05;
+    color:rgba(255,255,255,.86);
+    white-space:pre-line;
+  }
+
+  /* 图集区域 */
+  .cinema{
+    display:grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap:18px;
+    align-items:stretch;
+  }
+
+  @media(max-width:900px){
+    .cinema{grid-template-columns:1fr;}
+    .intro h1{font-size:32px;}
+  }
+
+  .frame{
+    border-radius:22px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.18);
+    position:relative;
+    min-height:380px;
+    background:#000;
+    user-select:none;
+  }
+
+  .slides{
+    display:flex;
+    width:100%;
+    height:100%;
+    transition:transform .55s ease;
+  }
+
+  .slide{
+    min-width:100%;
+    height:100%;
+    position:relative;
+  }
+
+  .slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:contrast(1.05) saturate(1.1);
+    transform:scale(1.03);
+    cursor:pointer;
+  }
+
+  .slide .caption{
+    position:absolute;
+    bottom:0;
+    width:100%;
+    padding:14px 16px;
+    background:linear-gradient(180deg, transparent, rgba(0,0,0,.78));
+    font-size:14px;
+    color:rgba(255,255,255,.9);
+    letter-spacing:1px;
+  }
+
+  .tip{
+    position:absolute;
+    top:12px;
+    left:12px;
+    font-size:12px;
+    padding:8px 12px;
+    border-radius:999px;
+    background:rgba(0,0,0,.55);
+    border:1px solid rgba(255,255,255,.15);
+    color:rgba(255,255,255,.75);
+    backdrop-filter: blur(10px);
+  }
+
+  /* 右侧信息 */
+  .info{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .info .box{
+    padding:14px;
+    border-radius:18px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.12);
+    font-size:14px;
+    line-height:1.85;
+  }
+
+  .info .box span{
+    display:inline-block;
+    min-width:80px;
+    color:rgba(255,255,255,.55);
+  }
+
+  /* 倒计时 */
+  .countdown{
+    margin-top:8px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .timebox{
+    flex:1;
+    min-width:110px;
+    padding:14px;
+    border-radius:18px;
+    text-align:center;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.12);
+  }
+
+  .timebox b{
+    font-size:26px;
+    display:block;
+    color:var(--gold);
+  }
+
+  .timebox small{
+    color:rgba(255,255,255,.55);
+  }
+
+  /* 打字机 */
+  .typing{
+    border-left:2px solid rgba(247,209,122,.8);
+    padding-left:10px;
+    animation:caret 1s infinite;
+  }
+
+  @keyframes caret{
+    0%,100%{border-color:rgba(247,209,122,.2);}
+    50%{border-color:rgba(247,209,122,.9);}
+  }
+
+  /* 图片放大预览弹窗 */
+  .modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.86);
+    z-index:999999;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+  }
+
+  .modal img{
+    width:min(920px, 100%);
+    max-height:88vh;
+    object-fit:contain;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.22);
+    box-shadow:0 20px 100px rgba(0,0,0,.65);
+  }
+
+  .modal .close{
+    position:absolute;
+    top:16px;
+    right:16px;
+    padding:10px 14px;
+    border-radius:999px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    color:rgba(255,255,255,.85);
+    cursor:pointer;
+    backdrop-filter: blur(10px);
+    font-size:13px;
+    user-select:none;
+  }
+
+  footer{
+    padding:55px 18px;
+    text-align:center;
+    font-size:13px;
+    color:rgba(255,255,255,.55);
+  }
+</style>
+</head>
+
+<body>
+
+<button id="musicBtn" onclick="toggleMusic()">🎵 音乐：<span id="musicState">关闭</span></button>
+
+<div class="grain"></div>
+
+<!-- 图片放大弹窗 -->
+<div class="modal" id="imgModal">
+  <div class="close" onclick="closeModal()">✕ 关闭</div>
+  <img id="modalImg" src="" alt="preview"/>
+</div>
+
+<!-- 片头 -->
+<div class="page intro">
+  <div>
+    <div class="badge">中国地质大学（北京）珠宝学院91022班 · 宝石及材料工艺学专业</div>
+    <h1>廿年一梦，归来仍是少年</h1>
+    <h2>
+      二十年过去，我们散落在不同的城市与人生里。<br/>
+      但一张老照片、一句熟悉的外号，仍能把我们带回那个夏天。
+    </h2>
+
+    <div class="credits">
+      <div>
+        出品：中国地质大学（北京）珠宝学院91022班<br/>
+        专业：宝石及材料工艺学<br/>
+        主题：青春不散场<br/>
+        特别出演：我们每一个人<br/>
+        友情客串：食堂、宿舍、操场、图书馆<br/>
+        上映时间：2026年5月23日<br/>
+      </div>
+    </div>
+
+    <div class="sub">⬇ 下滑，进入我们的青春电影</div>
+  </div>
+</div>
+
+<!-- 图集轮播 -->
+<section class="page">
+  <div class="card cinema">
+    <div class="frame" id="slider">
+      <div class="tip">📌 左右滑动切换 · 点击图片放大</div>
+
+      <div class="slides" id="slides">
+        <div class="slide"><img src="1.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 01 / 21</div></div>
+        <div class="slide"><img src="2.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 02 / 21</div></div>
+        <div class="slide"><img src="3.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 03 / 21</div></div>
+        <div class="slide"><img src="4.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 04 / 21</div></div>
+        <div class="slide"><img src="5.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 05 / 21</div></div>
+        <div class="slide"><img src="6.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 06 / 21</div></div>
+        <div class="slide"><img src="7.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 07 / 21</div></div>
+        <div class="slide"><img src="8.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 08 / 21</div></div>
+        <div class="slide"><img src="9.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 09 / 21</div></div>
+        <div class="slide"><img src="10.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 10 / 21</div></div>
+        <div class="slide"><img src="11.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 11 / 21</div></div>
+        <div class="slide"><img src="12.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 12 / 21</div></div>
+        <div class="slide"><img src="13.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 13 / 21</div></div>
+        <div class="slide"><img src="14.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 14 / 21</div></div>
+        <div class="slide"><img src="15.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 15 / 21</div></div>
+        <div class="slide"><img src="16.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 16 / 21</div></div>
+        <div class="slide"><img src="17.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 17 / 21</div></div>
+        <div class="slide"><img src="18.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 18 / 21</div></div>
+        <div class="slide"><img src="19.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 19 / 21</div></div>
+        <div class="slide"><img src="20.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 20 / 21</div></div>
+        <div class="slide"><img src="21.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 21 / 21</div></div>
+      </div>
+    </div>
+
+    <div class="info">
+      <div class="title">聚会信息</div>
+
+      <div class="box"><span>学校</span>中国地质大学（北京）</div>
+      <div class="box"><span>学院</span>珠宝学院</div>
+      <div class="box"><span>班级</span>91022班</div>
+      <div class="box"><span>专业</span>宝石及材料工艺学</div>
+      <div class="box"><span>时间</span>2026年5月23日（周六）</div>
+      <div class="box"><span>主题</span>毕业20周年返校聚会</div>
+
+      <div class="title" style="margin-top:8px;font-size:20px;">倒计时</div>
+      <div class="countdown">
+        <div class="timebox"><b id="d">--</b><small>天</small></div>
+        <div class="timebox"><b id="h">--</b><small>小时</small></div>
+        <div class="timebox"><b id="m">--</b><small>分钟</small></div>
+        <div class="timebox"><b id="s">--</b><small>秒</small></div>
+      </div>
+
+      <div class="box" style="margin-top:8px;">
+        <span>提示</span>支持自动播放、手动滑动、点击放大查看照片。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 信 -->
+<section class="page">
+  <div class="card">
+    <div class="title">致老同学的一封信</div>
+    <div class="text typing" id="letter">（加载中…）</div>
+  </div>
+</section>
+
+<!-- 活动安排 -->
+<section class="page">
+  <div class="card">
+    <div class="title">活动安排（暂定）</div>
+    <div class="text">
+· 老照片回顾（大屏播放）  
+· 校园重走（经典路线打卡）  
+· 食堂怀旧餐（回到当年的味道）  
+· 师生见面会（再听一节课）  
+· 参观校史馆 / 校博物馆 / 院系实验室  
+· 青春球赛（篮球/足球/羽毛球）  
+· 夜谈酒局（不谈KPI，只谈青春）  
+· 真心话大冒险（自愿参加）  
+
+（具体安排将于群内后续通知）
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 中国地质大学（北京）珠宝学院91022班 · 宝石及材料工艺学<br/>
+  愿我们归来仍是少年
+</footer>
+
+<script>
+  /* ========== 音乐控制 ========== */
+  const bgm = new Audio("bgm.mp3");
+  bgm.loop = true;
+  let playing = false;
+
+  function toggleMusic(){
+    if(!playing){
+      bgm.play();
+      playing = true;
+      document.getElementById("musicState").innerText = "开启";
+    }else{
+      bgm.pause();
+      playing = false;
+      document.getElementById("musicState").innerText = "关闭";
+    }
+  }
+
+  // 用户第一次点击页面任意位置时自动播放（适配微信/手机限制）
+  document.addEventListener("click", function(){
+    if(!playing){
+      bgm.play();
+      playing = true;
+      document.getElementById("musicState").innerText = "开启";
+    }
+  }, { once:true });
+
+  /* ========== 轮播功能：自动 + 手动滑动 + 鼠标拖动 ========== */
+  let currentIndex = 0;
+  const slidesEl = document.getElementById("slides");
+  const totalSlides = slidesEl.children.length;
+  const slider = document.getElementById("slider");
+
+  function goToSlide(i){
+    currentIndex = (i + totalSlides) % totalSlides;
+    slidesEl.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
+
+  // 轮播速度：更快（2.2秒）
+  let autoTimer = setInterval(()=>goToSlide(currentIndex+1), 2200);
+
+  function resetAuto(){
+    clearInterval(autoTimer);
+    autoTimer = setInterval(()=>goToSlide(currentIndex+1), 2200);
+  }
+
+  // 手机触摸滑动
+  let startX = 0;
+  let endX = 0;
+
+  slider.addEventListener("touchstart",(e)=>{
+    startX = e.touches[0].clientX;
+    clearInterval(autoTimer);
+  });
+
+  slider.addEventListener("touchmove",(e)=>{
+    endX = e.touches[0].clientX;
+  });
+
+  slider.addEventListener("touchend",()=>{
+    const diff = startX - endX;
+    if(diff > 50) goToSlide(currentIndex + 1);
+    else if(diff < -50) goToSlide(currentIndex - 1);
+    resetAuto();
+  });
+
+  // 电脑鼠标拖动
+  let mouseDown = false;
+  let mouseStartX = 0;
+  let mouseEndX = 0;
+
+  slider.addEventListener("mousedown",(e)=>{
+    mouseDown = true;
+    mouseStartX = e.clientX;
+    clearInterval(autoTimer);
+  });
+
+  slider.addEventListener("mousemove",(e)=>{
+    if(!mouseDown) return;
+    mouseEndX = e.clientX;
+  });
+
+  slider.addEventListener("mouseup",()=>{
+    if(!mouseDown) return;
+    mouseDown = false;
+    const diff = mouseStartX - mouseEndX;
+    if(diff > 60) goToSlide(currentIndex + 1);
+    else if(diff < -60) goToSlide(currentIndex - 1);
+    resetAuto();
+  });
+
+  slider.addEventListener("mouseleave",()=>{
+    mouseDown = false;
+    resetAuto();
+  });
+
+  /* ========== 图片放大预览 ========== */
+  const imgModal = document.getElementById("imgModal");
+  const modalImg = document.getElementById("modalImg");
+
+  function openModal(src){
+    modalImg.src = src;
+    imgModal.style.display = "flex";
+  }
+
+  function closeModal(){
+    imgModal.style.display = "none";
+  }
+
+  imgModal.addEventListener("click", function(e){
+    if(e.target === imgModal){
+      closeModal();
+    }
+  });
+
+  /* ========== 倒计时 ========== */
+  const target = new Date("2026-05-23T10:00:00").getTime();
+
+  function updateCountdown(){
+    const now = new Date().getTime();
+    let diff = target - now;
+    if(diff < 0) diff = 0;
+
+    const d = Math.floor(diff / (1000*60*60*24));
+    const h = Math.floor((diff / (1000*60*60)) % 24);
+    const m = Math.floor((diff / (1000*60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("d").innerText = d;
+    document.getElementById("h").innerText = h;
+    document.getElementById("m").innerText = m;
+    document.getElementById("s").innerText = s;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
+  /* ========== 打字机信件 ========== */
+  const letterText = `
+亲爱的老同学：
+
+见字如面。
+
+当2026年的春风拂过深圳湾，我忽然意识到，
+距离我们最后一次在校园里挥手道别，已经整整二十年了。
+
+二十年，足够一座城市旧貌换新颜，
+也足够让我们从少年，走成如今的模样。
+
+有人事业有成，有人家庭美满，
+有人忙着奔波，有人忙着生活。
+但我们都知道，那段青春从未真正离开。
+
+今年，我们想请你回到母校，
+走一走当年的路，坐一坐当年的台阶，
+看看曾经的教室、操场、宿舍楼。
+
+不是要你汇报年薪，不是要你炫耀成就，
+只是想看看你——
+看看你笑起来时，眼角是不是还藏着当年的弧度。
+
+二十年了，我们欠彼此一个拥抱。
+
+想你了，等你回来，把酒言欢！
+
+—— 中国地质大学（北京）珠宝学院91022班 敬邀
+  `.trim();
+
+  const letterEl = document.getElementById("letter");
+  let p = 0;
+
+  function typeWriter(){
+    if(p <= letterText.length){
+      letterEl.innerText = letterText.substring(0,p);
+      p++;
+      setTimeout(typeWriter, 22);
+    }
+  }
+  typeWriter();
+</script>
+
+</body>
+</html>
