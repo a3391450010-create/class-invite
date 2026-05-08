@@ -22,7 +22,7 @@
     overflow-x:hidden;
   }
 
-  /* 背景图：2.jpg + 半透明暗化 */
+  /* 背景图：2.jpg 半透明 */
   body::after{
     content:"";
     position:fixed;
@@ -38,7 +38,7 @@
     content:"";
     position:fixed;
     inset:0;
-    background:linear-gradient(180deg, rgba(0,0,0,.78), rgba(0,0,0,.88));
+    background:linear-gradient(180deg, rgba(0,0,0,.78), rgba(0,0,0,.9));
     z-index:-2;
   }
 
@@ -60,6 +60,23 @@
     justify-content:center;
     padding:26px 18px;
     position:relative;
+  }
+
+  /* 音乐按钮 */
+  #musicBtn{
+    position:fixed;
+    top:14px;
+    right:14px;
+    z-index:99999;
+    padding:10px 14px;
+    border-radius:999px;
+    background:rgba(0,0,0,.55);
+    border:1px solid rgba(255,255,255,.18);
+    color:rgba(255,255,255,.85);
+    backdrop-filter: blur(10px);
+    cursor:pointer;
+    font-size:13px;
+    user-select:none;
   }
 
   /* 片头封面 */
@@ -118,7 +135,7 @@
   /* 电影字幕滚动 */
   .credits{
     margin-top:40px;
-    height:130px;
+    height:140px;
     overflow:hidden;
     position:relative;
     opacity:.9;
@@ -127,16 +144,16 @@
   .credits div{
     position:absolute;
     width:100%;
-    top:140px;
-    animation:scrollCredits 13s linear infinite;
+    top:160px;
+    animation:scrollCredits 14s linear infinite;
     font-size:13px;
     line-height:2.05;
     color:rgba(255,255,255,.55);
   }
 
   @keyframes scrollCredits{
-    from{top:140px;}
-    to{top:-260px;}
+    from{top:160px;}
+    to{top:-280px;}
   }
 
   /* 卡片容器 */
@@ -191,7 +208,7 @@
     display:flex;
     width:100%;
     height:100%;
-    transition:transform .6s ease;
+    transition:transform .55s ease;
   }
 
   .slide{
@@ -251,7 +268,7 @@
 
   .info .box span{
     display:inline-block;
-    min-width:72px;
+    min-width:80px;
     color:rgba(255,255,255,.55);
   }
 
@@ -300,8 +317,8 @@
     display:none;
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.85);
-    z-index:99999;
+    background:rgba(0,0,0,.86);
+    z-index:999999;
     align-items:center;
     justify-content:center;
     padding:18px;
@@ -328,6 +345,7 @@
     cursor:pointer;
     backdrop-filter: blur(10px);
     font-size:13px;
+    user-select:none;
   }
 
   footer{
@@ -340,6 +358,9 @@
 </head>
 
 <body>
+
+<button id="musicBtn" onclick="toggleMusic()">🎵 音乐：<span id="musicState">关闭</span></button>
+
 <div class="grain"></div>
 
 <!-- 图片放大弹窗 -->
@@ -351,7 +372,7 @@
 <!-- 片头 -->
 <div class="page intro">
   <div>
-    <div class="badge">中国地质大学（北京） · 毕业20周年</div>
+    <div class="badge">中国地质大学（北京）珠宝学院91022班 · 宝石及材料工艺学专业</div>
     <h1>廿年一梦，归来仍是少年</h1>
     <h2>
       二十年过去，我们散落在不同的城市与人生里。<br/>
@@ -360,11 +381,11 @@
 
     <div class="credits">
       <div>
-        出品：XX班同学会筹备组<br/>
-        总策划：班长<br/>
+        出品：中国地质大学（北京）珠宝学院91022班<br/>
+        专业：宝石及材料工艺学<br/>
+        主题：青春不散场<br/>
         特别出演：我们每一个人<br/>
         友情客串：食堂、宿舍、操场、图书馆<br/>
-        主题：青春不散场<br/>
         上映时间：2026年5月23日<br/>
       </div>
     </div>
@@ -380,35 +401,38 @@
       <div class="tip">📌 左右滑动切换 · 点击图片放大</div>
 
       <div class="slides" id="slides">
-        <div class="slide"><img src="1.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 01</div></div>
-        <div class="slide"><img src="2.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 02</div></div>
-        <div class="slide"><img src="3.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 03</div></div>
-        <div class="slide"><img src="4.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 04</div></div>
-        <div class="slide"><img src="5.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 05</div></div>
-        <div class="slide"><img src="6.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 06</div></div>
-        <div class="slide"><img src="7.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 07</div></div>
-        <div class="slide"><img src="8.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 08</div></div>
-        <div class="slide"><img src="9.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 09</div></div>
-        <div class="slide"><img src="10.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 10</div></div>
-        <div class="slide"><img src="11.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 11</div></div>
-        <div class="slide"><img src="12.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 12</div></div>
-        <div class="slide"><img src="13.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 13</div></div>
-        <div class="slide"><img src="14.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 14</div></div>
-        <div class="slide"><img src="15.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 15</div></div>
-        <div class="slide"><img src="16.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 16</div></div>
-        <div class="slide"><img src="17.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 17</div></div>
-        <div class="slide"><img src="18.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 18</div></div>
-        <div class="slide"><img src="19.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 19</div></div>
-        <div class="slide"><img src="20.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 20</div></div>
-        <div class="slide"><img src="21.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 21</div></div>
+        <div class="slide"><img src="1.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 01 / 21</div></div>
+        <div class="slide"><img src="2.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 02 / 21</div></div>
+        <div class="slide"><img src="3.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 03 / 21</div></div>
+        <div class="slide"><img src="4.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 04 / 21</div></div>
+        <div class="slide"><img src="5.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 05 / 21</div></div>
+        <div class="slide"><img src="6.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 06 / 21</div></div>
+        <div class="slide"><img src="7.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 07 / 21</div></div>
+        <div class="slide"><img src="8.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 08 / 21</div></div>
+        <div class="slide"><img src="9.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 09 / 21</div></div>
+        <div class="slide"><img src="10.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 10 / 21</div></div>
+        <div class="slide"><img src="11.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 11 / 21</div></div>
+        <div class="slide"><img src="12.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 12 / 21</div></div>
+        <div class="slide"><img src="13.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 13 / 21</div></div>
+        <div class="slide"><img src="14.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 14 / 21</div></div>
+        <div class="slide"><img src="15.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 15 / 21</div></div>
+        <div class="slide"><img src="16.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 16 / 21</div></div>
+        <div class="slide"><img src="17.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 17 / 21</div></div>
+        <div class="slide"><img src="18.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 18 / 21</div></div>
+        <div class="slide"><img src="19.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 19 / 21</div></div>
+        <div class="slide"><img src="20.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 20 / 21</div></div>
+        <div class="slide"><img src="21.jpg" onclick="openModal(this.src)"><div class="caption">青春不散场 · 镜头 21 / 21</div></div>
       </div>
     </div>
 
     <div class="info">
       <div class="title">聚会信息</div>
 
+      <div class="box"><span>学校</span>中国地质大学（北京）</div>
+      <div class="box"><span>学院</span>珠宝学院</div>
+      <div class="box"><span>班级</span>91022班</div>
+      <div class="box"><span>专业</span>宝石及材料工艺学</div>
       <div class="box"><span>时间</span>2026年5月23日（周六）</div>
-      <div class="box"><span>地点</span>中国地质大学（北京）</div>
       <div class="box"><span>主题</span>毕业20周年返校聚会</div>
 
       <div class="title" style="margin-top:8px;font-size:20px;">倒计时</div>
@@ -420,7 +444,7 @@
       </div>
 
       <div class="box" style="margin-top:8px;">
-        <span>提示</span>本页面支持自动播放、手动滑动、点击放大查看照片。
+        <span>提示</span>支持自动播放、手动滑动、点击放大查看照片。
       </div>
     </div>
   </div>
@@ -454,12 +478,38 @@
 </section>
 
 <footer>
-  © 2026 毕业20周年同学聚会 · 青春不散场<br/>
+  © 2026 中国地质大学（北京）珠宝学院91022班 · 宝石及材料工艺学<br/>
   愿我们归来仍是少年
 </footer>
 
 <script>
-  /* ========== 轮播功能：自动 + 手动滑动 ========== */
+  /* ========== 音乐控制 ========== */
+  const bgm = new Audio("bgm.mp3");
+  bgm.loop = true;
+  let playing = false;
+
+  function toggleMusic(){
+    if(!playing){
+      bgm.play();
+      playing = true;
+      document.getElementById("musicState").innerText = "开启";
+    }else{
+      bgm.pause();
+      playing = false;
+      document.getElementById("musicState").innerText = "关闭";
+    }
+  }
+
+  // 用户第一次点击页面任意位置时自动播放（适配微信/手机限制）
+  document.addEventListener("click", function(){
+    if(!playing){
+      bgm.play();
+      playing = true;
+      document.getElementById("musicState").innerText = "开启";
+    }
+  }, { once:true });
+
+  /* ========== 轮播功能：自动 + 手动滑动 + 鼠标拖动 ========== */
   let currentIndex = 0;
   const slidesEl = document.getElementById("slides");
   const totalSlides = slidesEl.children.length;
@@ -470,8 +520,15 @@
     slidesEl.style.transform = `translateX(-${currentIndex * 100}%)`;
   }
 
-  let autoTimer = setInterval(()=>goToSlide(currentIndex+1), 3800);
+  // 轮播速度：更快（2.2秒）
+  let autoTimer = setInterval(()=>goToSlide(currentIndex+1), 2200);
 
+  function resetAuto(){
+    clearInterval(autoTimer);
+    autoTimer = setInterval(()=>goToSlide(currentIndex+1), 2200);
+  }
+
+  // 手机触摸滑动
   let startX = 0;
   let endX = 0;
 
@@ -486,14 +543,39 @@
 
   slider.addEventListener("touchend",()=>{
     const diff = startX - endX;
+    if(diff > 50) goToSlide(currentIndex + 1);
+    else if(diff < -50) goToSlide(currentIndex - 1);
+    resetAuto();
+  });
 
-    if(diff > 50){
-      goToSlide(currentIndex + 1);
-    }else if(diff < -50){
-      goToSlide(currentIndex - 1);
-    }
+  // 电脑鼠标拖动
+  let mouseDown = false;
+  let mouseStartX = 0;
+  let mouseEndX = 0;
 
-    autoTimer = setInterval(()=>goToSlide(currentIndex+1), 3800);
+  slider.addEventListener("mousedown",(e)=>{
+    mouseDown = true;
+    mouseStartX = e.clientX;
+    clearInterval(autoTimer);
+  });
+
+  slider.addEventListener("mousemove",(e)=>{
+    if(!mouseDown) return;
+    mouseEndX = e.clientX;
+  });
+
+  slider.addEventListener("mouseup",()=>{
+    if(!mouseDown) return;
+    mouseDown = false;
+    const diff = mouseStartX - mouseEndX;
+    if(diff > 60) goToSlide(currentIndex + 1);
+    else if(diff < -60) goToSlide(currentIndex - 1);
+    resetAuto();
+  });
+
+  slider.addEventListener("mouseleave",()=>{
+    mouseDown = false;
+    resetAuto();
   });
 
   /* ========== 图片放大预览 ========== */
@@ -565,7 +647,7 @@
 
 想你了，等你回来，把酒言欢！
 
-—— 班长 敬邀
+—— 中国地质大学（北京）珠宝学院91022班 敬邀
   `.trim();
 
   const letterEl = document.getElementById("letter");
@@ -575,7 +657,7 @@
     if(p <= letterText.length){
       letterEl.innerText = letterText.substring(0,p);
       p++;
-      setTimeout(typeWriter, 26);
+      setTimeout(typeWriter, 22);
     }
   }
   typeWriter();
