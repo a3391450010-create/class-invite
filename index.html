@@ -226,13 +226,13 @@
   }
 
   .slide img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    filter:contrast(1.05) saturate(1.1);
-    transform:scale(1.03);
-    cursor:pointer;
-  }
+  width:100%;
+  height:100%;
+  object-fit:contain;     /* 关键：完整显示图片 */
+  background:rgba(0,0,0,.35);  /* 避免留白太突兀 */
+  filter:contrast(1.05) saturate(1.1);
+  cursor:pointer;
+}
 
   .slide .caption{
     position:absolute;
